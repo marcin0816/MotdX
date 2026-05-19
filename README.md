@@ -4,7 +4,7 @@ Animated MOTD plugin for Paper servers with MiniMessage support, multiple animat
 
 **Requires:** Paper 26.1.2+  
 **Java:** 21+  
-**Optional:** PlaceholderAPI
+**Optional:** PlaceholderAPI, AuthMe Reloaded
 
 ---
 
@@ -51,6 +51,11 @@ Automatically show a different MOTD based on server state:
 On player join, checks the Mojang API asynchronously to determine if the username belongs to a real premium account. If so, displays a configurable title in the center of the screen prompting the player to use `/premium` for automatic login.
 
 Once a player uses `/premium`, their UUID is saved to `plugins/MotdX/premium-used.txt` and the notification is never shown again.
+
+**Requirements to activate:**
+- `premium-check.enabled: true`
+- `premium-check.enablePremium: true`
+- **AuthMe Reloaded** must be loaded on the server
 
 ### PlaceholderAPI Support
 Exposes the following placeholders via PlaceholderAPI:
@@ -151,6 +156,7 @@ conditions:
 
 premium-check:
   enabled: true
+  enablePremium: false   # set to true + AuthMe must be loaded
   title: "<gold><bold>Premium account detected!"
   subtitle: "<yellow>Use <white>/premium<yellow> for automatic login"
 

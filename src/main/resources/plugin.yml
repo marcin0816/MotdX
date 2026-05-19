@@ -4,7 +4,7 @@ main: dc.marcin0816.motdX.MotdX
 api-version: '26.1.2'
 authors: [ marcin0816 ]
 description: Animated MOTD plugin with MiniMessage support, multiple animation modes and maintenance mode.
-softdepend: [ PlaceholderAPI ]
+softdepend: [ PlaceholderAPI, AuthMe ]
 
 commands:
   motdx:

@@ -105,5 +105,7 @@ update-checker:
 # If the username belongs to a real premium account, a title is shown.
 premium-check:
   enabled: true
+  # Must be set to true AND AuthMe must be loaded for the feature to activate
+  enablePremium: false
   title: "<gold><bold>Wykryto konto premium!"
   subtitle: "<yellow>Użyj <white>/premium<yellow> aby uzyskać automatyczne logowanie"
