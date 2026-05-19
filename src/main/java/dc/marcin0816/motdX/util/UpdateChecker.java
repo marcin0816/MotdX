@@ -33,17 +33,23 @@ public class UpdateChecker {
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
             try {
                 var request = HttpRequest.newBuilder()
-                        .uri(URI.create("https://api.github.com/repos/" + owner + "/" + repo + "/releases/latest"))
+                        .uri(URI.create("https://api.github.com/repos/" + owner + "/" + repo + "/releases"))
                         .header("Accept", "application/vnd.github+json")
                         .timeout(Duration.ofSeconds(5))
                         .GET()
                         .build();
 
                 var response = http.send(request, HttpResponse.BodyHandlers.ofString());
-                if (response.statusCode() != 200) return;
+                if (response.statusCode() != 200) {
+                    plugin.getLogger().warning("Update check failed — GitHub API returned: " + response.statusCode());
+                    return;
+                }
 
                 Matcher matcher = TAG_PATTERN.matcher(response.body());
-                if (!matcher.find()) return;
+                if (!matcher.find()) {
+                    plugin.getLogger().info("No releases found on GitHub.");
+                    return;
+                }
 
                 String latest = matcher.group(1).replaceFirst("^v", "");
                 String current = plugin.getPluginMeta().getVersion();
@@ -54,6 +60,8 @@ public class UpdateChecker {
                     plugin.getLogger().info("  Current version: " + current);
                     plugin.getLogger().info("  https://github.com/" + owner + "/" + repo + "/releases/latest");
                     plugin.getLogger().info("================================================");
+                } else {
+                    plugin.getLogger().info("Plugin is up to date: " + current);
                 }
             } catch (IOException | InterruptedException e) {
                 plugin.getLogger().warning("Update check failed: " + e.getMessage());
