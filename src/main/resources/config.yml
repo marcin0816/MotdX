@@ -1,0 +1,109 @@
+# MotdX Configuration
+# MiniMessage format: https://docs.advntr.dev/minimessage/format.html
+# Placeholders: {online}, {max}
+
+animation:
+  # Modes:
+  #   sequential - plays frames in order (1, 2, 3, 1, 2, 3...)
+  #   random     - picks a random frame each ping
+  #   shuffle    - shuffles all frames then plays in order, reshuffles when done
+  mode: sequential
+
+# MOTD frames - each server ping shows the next frame
+motds:
+  - line1: "<gradient:gold:yellow><bold>► SaveCraft ◄</bold></gradient>"
+    line2: "<gray>Welcome! Online: <yellow>{online}<gray>/<yellow>{max}"
+
+  - line1: "<gradient:yellow:gold><bold>► SaveCraft ◄</bold></gradient>"
+    line2: "<aqua>savecraft.net"
+
+  - line1: "<gold><bold>✦ SaveCraft ✦</bold></gold>"
+    line2: "<gray>Dołącz już teraz! savecraft.net"
+
+  # Optional per-frame settings:
+  # players-online: 42    # override displayed online player count
+  # players-max: 100      # override displayed max player count
+
+# Animated server icon
+# Place 64x64 PNG files in plugins/MotdX/icons/ and enable below
+icons:
+  enabled: false
+  # Modes:
+  #   sync       - icon changes in sync with MOTD frame
+  #   sequential - independent sequential order
+  #   random     - random icon each ping
+  #   shuffle    - shuffled order, reshuffles when done
+  mode: sync
+
+# ActionBar animation - shown to all online players
+# Placeholders: {online}, {max}, {tps}
+actionbar:
+  enabled: false
+  # Ticks between frame changes (20 ticks = 1 second)
+  interval: 40
+  # Permission required to receive the ActionBar
+  permission: motdx.actionbar
+  frames:
+    - "<gradient:gold:yellow><bold>► SaveCraft ◄</bold></gradient>"
+    - "<gray>Online: <yellow>{online}<gray>/<yellow>{max} <dark_gray>| <gray>TPS: <yellow>{tps}"
+    - "<gradient:yellow:gold><bold>✦ SaveCraft ✦</bold></gradient>"
+
+# Time-based MOTD schedules — override normal frames during set hours
+schedules:
+  enabled: false
+  entries:
+    - name: "morning"
+      from: "06:00"
+      to: "12:00"
+      motds:
+        - line1: "<gold><bold>► SaveCraft ◄</bold></gold>"
+          line2: "<gray>Good morning! savecraft.net"
+
+    - name: "evening"
+      from: "18:00"
+      to: "23:00"
+      motds:
+        - line1: "<gradient:gold:yellow><bold>► SaveCraft ◄</bold></gradient>"
+          line2: "<gray>Good evening! savecraft.net"
+
+conditions:
+  # Show this MOTD when the server is full (online >= max)
+  full:
+    enabled: false
+    line1: "<red><bold>SERVER FULL</bold></red>"
+    line2: "<gray>Please try again later"
+
+  # Show this MOTD when whitelist is enabled
+  whitelist:
+    enabled: false
+    line1: "<yellow><bold>🔒 WHITELIST</bold></yellow>"
+    line2: "<gray>Server is whitelisted — invite only"
+
+  # Show this MOTD when online players <= threshold
+  # Example: threshold: 5 means this MOTD shows when 0-5 players are online
+  low:
+    enabled: false
+    threshold: 5   # Max number of online players to be considered "low" (inclusive)
+    line1: "<gradient:green:aqua><bold>► SaveCraft ◄</bold></gradient>"
+    line2: "<gray>Server is almost empty — be the first!"
+
+  # Maintenance mode - toggle with /motdx maintenance
+  # When enabled in config, maintenance starts automatically on server start
+  maintenance:
+    enabled: false
+    line1: "<yellow><bold>⚙ MAINTENANCE MODE ⚙</bold></yellow>"
+    line2: "<gray>Server is under maintenance, check back soon"
+
+# Check for plugin updates on startup (GitHub Releases)
+update-checker:
+  enabled: true
+  github-owner: marcin0816
+  github-repo: MotdX
+
+# Premium account detection
+# When a player joins, the Mojang API is checked asynchronously.
+# If the username belongs to a real premium account, a title is shown.
+premium-check:
+  enabled: true
+  title: "<gold><bold>Wykryto konto premium!"
+  subtitle: "<yellow>Użyj <white>/premium<yellow> aby uzyskać automatyczne logowanie"

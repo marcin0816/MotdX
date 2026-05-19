@@ -1,0 +1,36 @@
+name: MotdX
+version: '${version}'
+main: dc.marcin0816.motdX.MotdX
+api-version: '26.1.2'
+authors: [ marcin0816 ]
+description: Animated MOTD plugin with MiniMessage support, multiple animation modes and maintenance mode.
+softdepend: [ PlaceholderAPI ]
+
+commands:
+  motdx:
+    description: MotdX main command
+    usage: /motdx <reload|maintenance|preview|set|info>
+    permission: motdx.use
+
+permissions:
+  motdx.use:
+    description: Access to /motdx command
+    default: op
+  motdx.reload:
+    description: Reload MotdX config
+    default: op
+  motdx.maintenance:
+    description: Toggle maintenance mode
+    default: op
+  motdx.preview:
+    description: Preview current MOTD in chat
+    default: op
+  motdx.set:
+    description: Change animation mode on the fly
+    default: op
+  motdx.info:
+    description: View plugin info
+    default: op
+  motdx.actionbar:
+    description: Receive ActionBar animation
+    default: op
