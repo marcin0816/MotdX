@@ -39,13 +39,18 @@ public final class MotdX extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new MotdListener(this), this);
 
         if (getConfig().getBoolean("premium-check.enabled", false)) {
-            if (!getConfig().getBoolean("premium-check.enablePremium", false)) {
-                getLogger().info("Premium check disabled — set premium-check.enablePremium to true to enable.");
-            } else if (getServer().getPluginManager().getPlugin("AuthMe") == null) {
+            var authMe = getServer().getPluginManager().getPlugin("AuthMe");
+            if (authMe == null) {
                 getLogger().warning("Premium check disabled — AuthMe not found!");
             } else {
-                getServer().getPluginManager().registerEvents(new PremiumCheckListener(this, new PremiumDataStore(this)), this);
-                getLogger().info("Premium check enabled (AuthMe hooked).");
+                var authMeCfg = org.bukkit.configuration.file.YamlConfiguration
+                        .loadConfiguration(new java.io.File(authMe.getDataFolder(), "config.yml"));
+                if (!authMeCfg.getBoolean("settings.enablePremium", false)) {
+                    getLogger().info("Premium check disabled — set settings.enablePremium: true in AuthMe config.");
+                } else {
+                    getServer().getPluginManager().registerEvents(new PremiumCheckListener(this, new PremiumDataStore(this)), this);
+                    getLogger().info("Premium check enabled (AuthMe hooked).");
+                }
             }
         }
 

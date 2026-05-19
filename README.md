@@ -53,9 +53,9 @@ On player join, checks the Mojang API asynchronously to determine if the usernam
 Once a player uses `/premium`, their UUID is saved to `plugins/MotdX/premium-used.txt` and the notification is never shown again.
 
 **Requirements to activate:**
-- `premium-check.enabled: true`
-- `premium-check.enablePremium: true`
+- `premium-check.enabled: true` in MotdX config
 - **AuthMe Reloaded** must be loaded on the server
+- `settings.enablePremium: true` in AuthMe's `config.yml`
 
 ### PlaceholderAPI Support
 Exposes the following placeholders via PlaceholderAPI:
@@ -156,7 +156,6 @@ conditions:
 
 premium-check:
   enabled: true
-  enablePremium: false   # set to true + AuthMe must be loaded
   title: "<gold><bold>Premium account detected!"
   subtitle: "<yellow>Use <white>/premium<yellow> for automatic login"
 
